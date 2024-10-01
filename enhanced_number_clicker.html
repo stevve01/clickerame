@@ -1,0 +1,111 @@
+
+        <button id="clickMultiplierUpgrade">Buy Number Multiplier (30 numbers)</button>
+        <div id="clickMultiplierInfo" class="upgrade-info">Number Multiplier: 1x</div>
+        <button id="slowClickerUpgrade">Buy Slow Clicker (50 numbers)</button>
+        <div id="slowClickerInfo" class="upgrade-info">Slow Clickers: 0</div>
+        <button id="fastClickerUpgrade">Buy Fast Clicker (100 numbers)</button>
+        <div id="fastClickerInfo" class="upgrade-info">Fast Clickers: 0</div>
+        <button id="ultraClickerUpgrade">Buy Ultra Clicker (200 numbers)</button>
+        <div id="ultraClickerInfo" class="upgrade-info">Ultra Clickers: 0</div>
+        <button id="hyperClickerUpgrade">Buy Hyper Clicker (400 numbers)</button>
+        <div id="hyperClickerInfo" class="upgrade-info">Hyper Clickers: 0</div>
+    </div>
+</div>
+
+<script>
+    let count = 1;
+    let autoClickers = 0;
+    let clickMultiplier = 1;
+    let slowClickers = 0;
+    let fastClickers = 0;
+    let ultraClickers = 0;
+    let hyperClickers = 0;
+    let autoClickerPrice = 10;
+    let clickMultiplierPrice = 30;
+    let slowClickerPrice = 50;
+    let fastClickerPrice = 100;
+    let ultraClickerPrice = 200;
+    let hyperClickerPrice = 400;
+    let rebirthBonus = 0;
+    let rebirthCost = 3000;
+
+    const counter = document.getElementById('counter');
+    const clickButton = document.getElementById('clickButton');
+    const rebirthButton = document.getElementById('rebirthButton');
+    const rebirthInfo = document.getElementById('rebirthInfo');
+    const autoClickerUpgrade = document.getElementById('autoClickerUpgrade');
+    const clickMultiplierUpgrade = document.getElementById('clickMultiplierUpgrade');
+    const slowClickerUpgrade = document.getElementById('slowClickerUpgrade');
+    const fastClickerUpgrade = document.getElementById('fastClickerUpgrade');
+    const ultraClickerUpgrade = document.getElementById('ultraClickerUpgrade');
+    const hyperClickerUpgrade = document.getElementById('hyperClickerUpgrade');
+    const autoClickerInfo = document.getElementById('autoClickerInfo');
+    const clickMultiplierInfo = document.getElementById('clickMultiplierInfo');
+    const slowClickerInfo = document.getElementById('slowClickerInfo');
+    const fastClickerInfo = document.getElementById('fastClickerInfo');
+    const ultraClickerInfo = document.getElementById('ultraClickerInfo');
+    const hyperClickerInfo = document.getElementById('hyperClickerInfo');
+
+    // Обработчик клика для увеличения счетчика
+    clickButton.addEventListener('click', (event) => {
+        count += clickMultiplier + rebirthBonus;
+        updateCounter();
+        createClickEffect(event);
+        clickButton.classList.add('clicked');
+        setTimeout(() => {
+            clickButton.classList.remove('clicked');
+        }, 300);
+    });
+
+    // Функция создания эффекта клика
+    function createClickEffect(event) {
+        const effect = document.createElement('div');
+        effect.innerText = '+' + (clickMultiplier + rebirthBonus);
+        effect.style.position = 'absolute';
+        effect.style.left = event.clientX + 'px';
+        effect.style.top = event.clientY + 'px';
+        effect.style.pointerEvents = 'none';
+        effect.style.animation = 'moveUp 0.8s ease-out';
+        effect.style.color = '#ff7043';
+        effect.style.fontWeight = 'bold';
+        effect.style.fontSize = '1.5rem';
+        document.body.appendChild(effect);
+        setTimeout(() => {
+            document.body.removeChild(effect);
+        }, 800);
+    }
+
+    // Функции обновления интерфейса
+    function updateCounter() {
+        counter.textContent = Math.floor(count).toLocaleString();
+    }
+
+    setInterval(() => {
+        count += autoClickers * (1 + rebirthBonus);
+        updateCounter();
+    }, 1000);
+
+    setInterval(() => {
+        count += slowClickers * (1 + rebirthBonus);
+        updateCounter();
+    }, 3000);
+
+    setInterval(() => {
+        count += fastClickers * 2 * (1 + rebirthBonus);
+        updateCounter();
+    }, 500);
+
+    setInterval(() => {
+        count += ultraClickers * 0.5 * (1 + rebirthBonus);
+        updateCounter();
+    }, 125);
+
+    setInterval(() => {
+        count += hyperClickers * (1 + rebirthBonus);
+        updateCounter();
+    }, 75);
+
+    updateCounter();
+</script>
+</body>
+</html>
